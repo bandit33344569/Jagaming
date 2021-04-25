@@ -5,9 +5,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
-
     public Transform target;
-    int distance = -5;
+    int distance = -8;
     float lift = 1.5f;
 
 

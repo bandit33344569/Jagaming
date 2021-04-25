@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
-    - Assets/Scripts/CameraController.cs
+    - Assets/Fonts.meta
+    - Assets/Fonts/BAUHS93.TTF
+    - Assets/Fonts/BAUHS93.TTF.meta
+    - Assets/Scripts/Player.cs
+    - Assets/Scripts/Stat.cs
     - 
-    m_Values: 0101
+    m_Values: 000000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 

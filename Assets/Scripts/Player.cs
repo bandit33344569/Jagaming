@@ -4,28 +4,86 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float movementSpeed = 0.25f;
-    public Rigidbody2D rb;
-    Vector2 movement;
+    [SerializeField]
+    private Stat health;
+
+
+    private float initHealth = 100;
+
+    Vector2 direction;
+    [SerializeField]
+    float movementSpeed = 0.25f;
+
+    public Rigidbody2D playerrb;
     public Animator animator;
-    // Start is called before the first frame update
+
     void Start()
     {
-
+        health.Initialize(initHealth, initHealth);
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
+        GetInput();
+        Move();
     }
 
-    private void FixedUpdate()
+    public void Move()
     {
-        rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
+        transform.Translate(direction * movementSpeed * Time.deltaTime);
+        if (direction.x != 0 || direction.y !=0)
+        {
+            AnimateMovement(direction);
+        }
+        else
+        {
+            animator.SetLayerWeight(1, 0);
+        }
     }
+
+    private void GetInput()
+    {
+        direction = Vector2.zero;
+
+        //Для Дебагинга
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            health.MyCurrentValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            health.MyCurrentValue -= 10;
+        }
+
+        //
+
+
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            direction += Vector2.up;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            direction += Vector2.left;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            direction += Vector2.down;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            direction += Vector2.right;
+        }
+    }
+
+    public void AnimateMovement(Vector2 direction)
+    {
+        animator.SetLayerWeight(1, 1);
+        animator.SetFloat("x", direction.x);
+        animator.SetFloat("y", direction.y);
+    }
+
 }
